@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using io = System.IO;
 
 namespace back.Controllers;
 
@@ -10,7 +11,26 @@ public class ContentController : ControllerBase
     [HttpGet("test")]
     public object test()
     {
+        var path = @"C:\Users\Usuário\Desktop\StreammingExample\videoToStreamming\";
+        StreammingDBContext context = new StreammingDBContext();
+
+        for (int i = 0; i < 57; i++)
+        {
+               var data = io.File.ReadAllBytes(path + $"Ronnie O'Sullivan Fastest 147{i}.ts");
+
+               context.Contents.Add(new Content()
+               {
+                   Bytes = data
+               });
+        }
+        var m3u8 = io.File.ReadAllBytes(path + "Ronnie O'Sullivan Fastest 147.m3u8");
+        context.Contents.Add(new Content()
+        {
+            Bytes = m3u8
+        });
+        context.SaveChanges();
         
+        return "Bonito";
     }
 
     [HttpGet("content/{id}")]
