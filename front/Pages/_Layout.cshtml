@@ -12,6 +12,7 @@
     <link href="css/site.css" rel="stylesheet" />
     <link href="front.styles.css" rel="stylesheet" />
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+    <script src="//cdn.jsdelivr.net/hls.js/latest/hls.min.js"></script>
 </head>
 <body>
     @RenderBody()
@@ -28,5 +29,24 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+        <script>
+        window.PlayVideo = (contentid) =>
+        {
+            var video = document.getElementById("video");
+            var videoSrcHls = "https://localhost:7006/content/" + contentid;
+            if(Hls.isSupported())
+            {
+                var hls = new Hls();
+                hls.loadSource(videoSrcHls);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function()
+                {
+                    video.play();
+                });
+            }
+            return "ok!";
+        };
+    </script>
 </body>
 </html>
