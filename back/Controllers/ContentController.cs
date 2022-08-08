@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using io = System.IO;
 
 namespace back.Controllers;
@@ -34,6 +35,7 @@ public class ContentController : ControllerBase
     }
 
     [HttpGet("content/{id}")]
+    [EnableCors("main")]
     public IActionResult getContent(int id)
     {
         StreammingDBContext context = new StreammingDBContext();

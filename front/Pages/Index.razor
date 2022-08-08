@@ -1,9 +1,13 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inject IJSRuntime js
 
-<h1>Hello, world!</h1>
+<video id="video" controls></video>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code
+{
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeAsync<string>("PlayVideo", "58");
+    }
+}
