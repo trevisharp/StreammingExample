@@ -15,3 +15,5 @@ create table Content(
 	ID int identity primary key,
 	Bytes varbinary(MAX) not null
 )
+
+select * from Content
